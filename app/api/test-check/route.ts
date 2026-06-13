@@ -18,6 +18,23 @@ export async function GET() {
       createdAt: new Date(result.timestamp).toISOString(),
     });
     
+    // Clean up old checks (older than 90 days)
+    const ninetyDaysAgo = new Date();
+    ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+    
+    const oldChecks = await checksRef
+      .where('createdAt', '<', ninetyDaysAgo.toISOString())
+      .limit(500)
+      .get();
+    
+    if (!oldChecks.empty) {
+      const batch = db.batch();
+      oldChecks.docs.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+      await batch.commit();
+    }
+    
     return NextResponse.json({ 
       success: true, 
       status: result.status,
