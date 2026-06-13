@@ -10,7 +10,7 @@ export async function checkUptime(url: string): Promise<UptimeCheck> {
   
   try {
     const response = await fetch(url, {
-      method: 'HEAD',
+      method: 'GET',
       signal: AbortSignal.timeout(10000), // 10 second timeout
     });
     
