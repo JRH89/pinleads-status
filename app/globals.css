@@ -1,3 +1,60 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary: #0b3e6e;
+  --accent: #257fb9;
+  --tertiary: #197e8b;
+  
+  --background: #0f0f1a;
+  --foreground: #f0f0f5;
+  --card: #1a1a2e;
+  --border: #4a4a6a;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+
+.tiny-text {
+  font-size: 0.35rem;
+}
+
+.tiny-text2 {
+  font-size: 0.60rem;
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .tiny-text2 {
+    display: none;
+  }
+}
+
+
+.footer-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  text-decoration: none;
+  margin-bottom: 12px;
+}
+
+.footer-logo {
+  width: 30px;
+  height: 30px;
+}
+
+.footer-logo-text {
+  color: var(--foreground);
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.footer-tagline {
+  color: var(--foreground);
+  font-size: 0.9rem;
+}
