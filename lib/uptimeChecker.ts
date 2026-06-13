@@ -16,9 +16,12 @@ export async function checkUptime(url: string): Promise<UptimeCheck> {
     
     const responseTime = Date.now() - startTime;
     
-    console.log(`Uptime check for ${url}: status=${response.status}, ok=${response.ok}`);
+    // Consider 2xx and 3xx as up (site is responding, even if redirecting)
+    const isUp = response.status >= 200 && response.status < 400;
     
-    if (response.ok) {
+    console.log(`Uptime check for ${url}: status=${response.status}, isUp=${isUp}`);
+    
+    if (isUp) {
       return {
         timestamp: Date.now(),
         status: 'up',
