@@ -16,6 +16,8 @@ export async function checkUptime(url: string): Promise<UptimeCheck> {
     
     const responseTime = Date.now() - startTime;
     
+    console.log(`Uptime check for ${url}: status=${response.status}, ok=${response.ok}`);
+    
     if (response.ok) {
       return {
         timestamp: Date.now(),
