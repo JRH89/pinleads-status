@@ -22,6 +22,7 @@ export async function GET() {
       success: true, 
       status: result.status,
       responseTime: result.responseTime,
+      httpStatus: result.error || 'N/A',
     });
   } catch (error) {
     console.error('Uptime check failed:', error);
