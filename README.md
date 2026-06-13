@@ -52,7 +52,7 @@ GitHub Actions can run scheduled tasks more frequently:
 2. Go to repository Settings > Secrets and variables > Actions
 3. Add a new secret:
    - Name: `STATUS_URL`
-   - Value: `https://pinleads-status.vercel.app`
+   - Value: `https://status.pinleads.org`
 4. The workflow will run every 5 minutes automatically
 
 You can also trigger the workflow manually from the Actions tab in GitHub.
@@ -102,7 +102,7 @@ You can fetch uptime data from any website using the `/api/uptime` endpoint. Her
 ### JavaScript (Fetch API)
 ```javascript
 // Simple fetch
-fetch('https://pinleads-status.vercel.app/api/uptime')
+fetch('https://status.pinleads.org/api/uptime')
   .then(response => response.json())
   .then(data => {
     console.log('Overall uptime:', data.overallUptime + '%');
@@ -113,7 +113,7 @@ fetch('https://pinleads-status.vercel.app/api/uptime')
 // With error handling
 async function getUptimeData() {
   try {
-    const response = await fetch('https://pinleads-status.vercel.app/api/uptime');
+    const response = await fetch('https://status.pinleads.org/api/uptime');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -143,7 +143,7 @@ function UptimeStatus() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://pinleads-status.vercel.app/api/uptime')
+    fetch('https://status.pinleads.org/api/uptime')
       .then(res => res.json())
       .then(data => {
         setUptime(data);
@@ -174,14 +174,14 @@ function UptimeStatus() {
 
 ### cURL
 ```bash
-curl https://pinleads-status.vercel.app/api/uptime
+curl https://status.pinleads.org/api/uptime
 ```
 
 ### Python
 ```python
 import requests
 
-response = requests.get('https://pinleads-status.vercel.app/api/uptime')
+response = requests.get('https://status.pinleads.org/api/uptime')
 data = response.json()
 
 print(f"Overall uptime: {data['overallUptime']}%")
@@ -192,7 +192,7 @@ print(f"Last check status: {data['lastCheck']['status']}")
 ### PHP
 ```php
 <?php
-$response = file_get_contents('https://pinleads-status.vercel.app/api/uptime');
+$response = file_get_contents('https://status.pinleads.org/api/uptime');
 $data = json_decode($response, true);
 
 echo "Overall uptime: " . $data['overallUptime'] . "%<br>";
@@ -205,7 +205,7 @@ echo "Status: " . $data['lastCheck']['status'] . "<br>";
 <div id="uptime-status">Loading...</div>
 
 <script>
-fetch('https://pinleads-status.vercel.app/api/uptime')
+fetch('https://status.pinleads.org/api/uptime')
   .then(res => res.json())
   .then(data => {
     const status = data.overallUptime >= 99 ? '🟢' : 
