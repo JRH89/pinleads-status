@@ -42,14 +42,20 @@ npm run dev
 
 ## Deployment
 
-Deploy to Vercel:
+### Option 1: Vercel Cron Jobs (Limited)
+Vercel cron jobs have limitations on the free tier. For more frequent checks, use GitHub Actions.
+
+### Option 2: GitHub Actions (Recommended)
+GitHub Actions can run scheduled tasks more frequently:
 
 1. Push your code to GitHub
-2. Import the project in Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy
+2. Go to repository Settings > Secrets and variables > Actions
+3. Add a new secret:
+   - Name: `STATUS_URL`
+   - Value: Your deployed Vercel URL (e.g., `https://your-project.vercel.app`)
+4. The workflow will run every 5 minutes automatically
 
-The cron job will automatically run every 5 minutes to check uptime.
+You can also trigger the workflow manually from the Actions tab in GitHub.
 
 ## API Endpoints
 
