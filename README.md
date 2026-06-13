@@ -72,6 +72,18 @@ Returns uptime data for the last 90 days.
       "uptime": 100,
       "totalChecks": 288,
       "downChecks": 0
+    },
+    {
+      "date": "2024-01-02",
+      "uptime": 98.5,
+      "totalChecks": 288,
+      "downChecks": 4
+    },
+    {
+      "date": "2024-01-03",
+      "uptime": 100,
+      "totalChecks": 288,
+      "downChecks": 0
     }
   ],
   "totalChecks": 25920,
