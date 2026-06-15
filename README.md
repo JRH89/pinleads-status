@@ -4,7 +4,7 @@ A lightweight uptime monitoring service for pinleads.org, built with Next.js and
 
 ## Features
 
-- **Automated Monitoring**: Checks https://pinleads.org every 5 minutes via Vercel cron jobs
+- **Automated Monitoring**: Checks https://pinleads.org every 5 minutes via cron-jobs.com
 - **90-Day History**: Stores uptime data for the last 90 days
 - **Visual Dashboard**: Displays uptime status with color-coded markers (green/yellow/red)
 - **API Access**: Fetch uptime data via `/api/uptime` endpoint
