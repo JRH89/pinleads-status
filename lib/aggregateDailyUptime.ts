@@ -12,8 +12,11 @@ export interface DailyUptimeStats {
 /**
  * Aggregates uptime checks for a specific date and stores the result
  * in the daily_uptime collection
+ * 
+ * @param date - Date to aggregate (YYYY-MM-DD format)
+ * @param deleteOldChecks - If true, deletes individual checks after aggregation (default: false)
  */
-export async function aggregateDailyUptime(date: string): Promise<DailyUptimeStats> {
+export async function aggregateDailyUptime(date: string, deleteOldChecks: boolean = false): Promise<DailyUptimeStats> {
   // Fetch all checks for the specific date by filtering on the date string
   const checksRef = db.collection('uptime_checks');
   const snapshot = await checksRef
@@ -71,19 +74,36 @@ export async function aggregateDailyUptime(date: string): Promise<DailyUptimeSta
   await db.collection('daily_uptime').doc(date).set(dailyStats);
 
   console.log(`Aggregated uptime for ${date}: ${dailyStats.uptime.toFixed(2)}% (${totalChecks} checks)`);
+
+  // Delete individual checks if requested
+  if (deleteOldChecks && filteredChecks.length > 0) {
+    const batch = db.batch();
+    snapshot.docs.forEach(doc => {
+      const checkDate = new Date(doc.data().createdAt).toISOString().split('T')[0];
+      if (checkDate === date) {
+        batch.delete(doc.ref);
+      }
+    });
+    await batch.commit();
+    console.log(`Deleted ${snapshot.docs.length} individual checks for ${date}`);
+  }
   
   return dailyStats;
 }
 
 /**
  * Aggregates uptime for all dates from start date to end date
+ * 
+ * @param startDate - Start date for aggregation
+ * @param endDate - End date for aggregation
+ * @param deleteOldChecks - If true, deletes individual checks after aggregation (default: false)
  */
-export async function aggregateDateRange(startDate: Date, endDate: Date): Promise<void> {
+export async function aggregateDateRange(startDate: Date, endDate: Date, deleteOldChecks: boolean = false): Promise<void> {
   const currentDate = new Date(startDate);
-  
+
   while (currentDate <= endDate) {
     const dateStr = currentDate.toISOString().split('T')[0];
-    await aggregateDailyUptime(dateStr);
+    await aggregateDailyUptime(dateStr, deleteOldChecks);
     currentDate.setDate(currentDate.getDate() + 1);
   }
 }
