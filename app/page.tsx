@@ -94,11 +94,6 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="flex-1 max-w-6xl mx-auto px-4 py-12 w-full">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">System Status</h1>
-          <p className="text-foreground opacity-70">Real-time uptime monitoring for pinleads.org</p>
-        </div>
-
         {/* Overall Status */}
         <div className="bg-card border border-border rounded-lg p-6 mb-8 shadow-sm">
           <div className="flex items-center justify-between mb-4">
@@ -116,11 +111,10 @@ export default function Home() {
           <p className="text-foreground opacity-70">
             Based on {data?.totalChecks} checks over the last 90 days
           </p>
-        </div>
 
-        {/* Last Check */}
+           {/* Last Check */}
         {data?.lastCheck && (
-          <div className="bg-card border border-border rounded-lg p-6 mb-8 shadow-sm">
+          <div className="bg-card border border-border rounded-lg p-4 shadow-sm mt-4">
             <h2 className="text-lg font-semibold mb-4 text-foreground">Last Check</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
@@ -140,15 +134,16 @@ export default function Home() {
             </div>
           </div>
         )}
+        </div>
 
         {/* 90-Day History */}
-        <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
+        <div className="bg-card border border-border rounded-lg p-6 shadow-sm mb-8">
           <h2 className="text-lg font-semibold mb-4 text-foreground">90-Day History</h2>
-          <div className="grid grid-cols-10 gap-2">
+          <div className="flex flex-row gap-0.5 w-full justify-evenly">
             {data?.dailyData.map((day) => (
               <div
                 key={day.date}
-                className={`aspect-square rounded ${getStatusColor(day.uptime)} cursor-pointer hover:opacity-80 transition-opacity`}
+                className={`w-2 h-10 rounded-sm ${getStatusColor(day.uptime)} cursor-pointer hover:opacity-80 transition-opacity`}
                 title={`${day.date}: ${day.uptime.toFixed(1)}% uptime (${day.downChecks} downtime)`}
               />
             ))}
@@ -168,6 +163,8 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+       
       </main>
 
       {/* Footer */}
