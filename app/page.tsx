@@ -28,23 +28,6 @@ export default function Home() {
       .then(setData)
       .catch(console.error)
       .finally(() => setLoading(false));
-
-    // In development, run uptime checks every 10 seconds
-    if (process.env.NODE_ENV === 'development') {
-      const interval = setInterval(() => {
-        fetch('/api/test-check')
-          .then(res => res.json())
-          .then(() => {
-            // Refresh uptime data after check
-            return fetch('/api/uptime');
-          })
-          .then(res => res.json())
-          .then(setData)
-          .catch(console.error);
-      }, 10000);
-
-      return () => clearInterval(interval);
-    }
   }, []);
 
   const getStatusColor = (uptime: number) => {
