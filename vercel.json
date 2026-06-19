@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/aggregate-daily",
+      "path": "/api/aggregate?all=true",
       "schedule": "0 5 * * *"
     }
   ]

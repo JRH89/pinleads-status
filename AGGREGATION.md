@@ -60,7 +60,7 @@ To backfill existing data with the new aggregation system:
 
 ```bash
 # Aggregate all existing data from 90 days ago to yesterday
-curl -X POST http://localhost:3000/api/aggregate?all=true
+curl -X POST https://status.pinleads.org/api/aggregate?all=true
 ```
 
 ### Scheduled Aggregation
